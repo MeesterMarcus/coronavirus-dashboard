@@ -1,31 +1,75 @@
 <div class="jumbotron"><h2>Coronavirus Statistics</h2></div>
 
-<!--<pre>-->
-<!--  {{summary | json}}-->
-<!--</pre>-->
-
 <div *ngIf="summary">
 
   <h4>Global Statistics for {{summary.Date | date}}</h4>
   <div class="row">
     <div class="col-md-4">
-      <div>
+      <div style="color: orange;">
         Total confirmed cases:
       </div>
       <span>{{summary.Global.TotalConfirmed | number}}</span>
     </div>
     <div class="col-md-4">
-      <div>
+      <div style="color: red">
         Total deaths:
       </div>
       <span>{{summary.Global.TotalDeaths | number}}</span>
     </div>
     <div class="col-md-4">
-      <div>
+      <div style="color: darkgreen">
         Total recovered cases:
       </div>
       <span>{{summary.Global.TotalRecovered | number}}</span>
     </div>
+  </div>
+
+  <h4 style="margin-top:15px;">US Only Statistics</h4>
+  <div class="row" *ngIf="usStatistics">
+    <div class="col-md-4">
+      <div>
+        Positive Tests:
+      </div>
+      <span>{{usStatistics[0].positive | number}}</span>
+    </div>
+    <div class="col-md-4">
+      <div>
+        Negative Tests:
+      </div>
+      <span>{{usStatistics[0].negative | number}}</span>
+    </div>
+    <div class="col-md-4">
+      <div>
+        On Ventilator Currently:
+      </div>
+      <span>{{usStatistics[0].onVentilatorCurrently | number}}</span>
+    </div>
+    <div class="col-md-4">
+      <div>
+        Hospitalized Currently:
+      </div>
+      <span>{{usStatistics[0].hospitalizedCurrently | number}}</span>
+    </div>
+    <div class="col-md-4">
+      <div>
+        In ICU Currently:
+      </div>
+      <span>{{usStatistics[0].inIcuCurrently | number}}</span>
+    </div>
+
+    <ngx-charts-bar-vertical *ngIf="usDaily"
+                             [view]="view"
+                             [scheme]="colorSchemeDefault"
+                             [results]="usDaily"
+                             [gradient]="gradient"
+                             [xAxis]="showXAxis"
+                             [yAxis]="showYAxis"
+                             [showXAxisLabel]="showXAxisLabel"
+                             [showYAxisLabel]="showYAxisLabel"
+                             [xAxisLabel]="'Date'"
+                             [yAxisLabel]="'Positive Increase Change'">
+    </ngx-charts-bar-vertical>
+
   </div>
 
   <h4 style="margin-top:15px;">Statistics for {{countryStats.Country}}</h4>
@@ -39,43 +83,68 @@
            style="width: 80%; margin:20px;">
   </div>
 
-
   <div class="row" *ngIf="countryStats">
     <div class="col-md-4">
-      <div>
+      <div style="color: orange;">
         Total confirmed cases:
       </div>
       <span>{{countryStats.TotalConfirmed | number}}</span>
     </div>
     <div class="col-md-4">
-      <div>
+      <div style="color: red">
         Total deaths:
       </div>
       <span>{{countryStats.TotalDeaths | number}}</span>
     </div>
     <div class="col-md-4">
-      <div>
+      <div style="color: darkgreen">
         Total recovered cases:
       </div>
       <span>{{countryStats.TotalRecovered | number}}</span>
     </div>
-  </div>
 
-  <ngx-charts-bar-vertical *ngIf="countryStatsDayOne"
-    [view]="view"
-    [scheme]="colorScheme"
-    [results]="countryStatsDayOne"
-    [gradient]="gradient"
-    [xAxis]="showXAxis"
-    [yAxis]="showYAxis"
-    [showXAxisLabel]="showXAxisLabel"
-    [showYAxisLabel]="showYAxisLabel"
-    [xAxisLabel]="xAxisLabel"
-    [yAxisLabel]="yAxisLabel"
-  >
-  </ngx-charts-bar-vertical>
+    <ngx-charts-bar-vertical *ngIf="countryConfirmedDayOne"
+                             [view]="view"
+                             [scheme]="colorSchemeConf"
+                             [results]="countryConfirmedDayOne"
+                             [gradient]="gradient"
+                             [xAxis]="showXAxis"
+                             [yAxis]="showYAxis"
+                             [showXAxisLabel]="showXAxisLabel"
+                             [showYAxisLabel]="showYAxisLabel"
+                             [xAxisLabel]="'Date'"
+                             [yAxisLabel]="'Confirmed Cases'">
+    </ngx-charts-bar-vertical>
+
+    <ngx-charts-bar-vertical *ngIf="countryDeathsDayOne"
+                             [view]="view"
+                             [scheme]="colorSchemeDeath"
+                             [results]="countryDeathsDayOne"
+                             [gradient]="gradient"
+                             [xAxis]="showXAxis"
+                             [yAxis]="showYAxis"
+                             [showXAxisLabel]="showXAxisLabel"
+                             [showYAxisLabel]="showYAxisLabel"
+                             [xAxisLabel]="'Date'"
+                             [yAxisLabel]="'Deaths'">
+    </ngx-charts-bar-vertical>
+
+    <ngx-charts-bar-vertical *ngIf="countryRecoveredDayOne"
+                             [view]="view"
+                             [scheme]="colorSchemeRecov"
+                             [results]="countryRecoveredDayOne"
+                             [gradient]="gradient"
+                             [xAxis]="showXAxis"
+                             [yAxis]="showYAxis"
+                             [showXAxisLabel]="showXAxisLabel"
+                             [showYAxisLabel]="showYAxisLabel"
+                             [xAxisLabel]="'Date'"
+                             [yAxisLabel]="'Recovered'">
+    </ngx-charts-bar-vertical>
+  </div>
 
 
 </div>
+
 
 

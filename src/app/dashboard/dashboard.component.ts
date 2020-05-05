@@ -9,31 +9,40 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
 })
 export class DashboardComponent implements OnInit {
 
-  title = 'Angular Charts';
-
   view: any[] = [900, 400];
 
   // options for the chart
   showXAxis = true;
   showYAxis = true;
   gradient = false;
-  // showLegend = true;
   showXAxisLabel = true;
-  xAxisLabel = 'Date';
   showYAxisLabel = true;
-  yAxisLabel = 'Confirmed Cases';
-  // timeline = true;
 
-  colorScheme = {
-    domain: ['#FF7F50']
+  colorSchemeDefault = {
+    domain: ['#000000']
   };
 
-  showLabels = true;
+  colorSchemeConf = {
+    domain: ['#ffa91e']
+  };
+
+  colorSchemeDeath = {
+    domain: ['#ff0400']
+  };
+
+  colorSchemeRecov = {
+    domain: ['#0fff2b']
+  };
+
   summary: any;
   selectedCountry: string;
   countries: any;
   countryStats: any;
-  countryStatsDayOne: any[];
+  countryConfirmedDayOne: any[];
+  countryDeathsDayOne: any[];
+  countryRecoveredDayOne: any[];
+  usDaily: any[];
+  usStatistics: any;
 
   constructor(private coronavirusApiService: CoronavirusApiService) {
   }
@@ -41,11 +50,13 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.coronavirusApiService.getSummary().subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
         this.summary = data;
         this.countries = data.Countries;
         this.countryStats = this.countryStats = this.countries.find(o => o.Slug === 'united-states');
         this.getStatsByCountry('united-states');
+        this.retrieveUs();
+        this.retrieveUsDaily();
       },
       error => {
         console.log(error);
@@ -55,23 +66,72 @@ export class DashboardComponent implements OnInit {
 
   retrieveCountry(event) {
     const countrySlug = event.item.Slug;
-    console.log('Selected: ' + countrySlug);
     this.countryStats = this.countries.find(o => o.Slug === countrySlug);
     this.getStatsByCountry(countrySlug);
+  }
+
+  retrieveUs() {
+    this.coronavirusApiService.getUsStatistics().subscribe(
+      data => {
+        this.usStatistics = data;
+        // console.log(this.usStatistics);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+  retrieveUsDaily() {
+    this.coronavirusApiService.getUsStatisticsDaily().subscribe(
+      data => {
+        console.log(data);
+        const daily = [];
+        const dailyData = data.reverse();
+        dailyData.forEach(o => {
+          console.log(o);
+          const dailyObj: any = {};
+          dailyObj.name = o.date;
+          if (o.positiveIncrease === null) {
+            dailyObj.value = 0;
+          } else {
+            dailyObj.value = o.positiveIncrease;
+          }
+          daily.push(dailyObj);
+        });
+        this.usDaily = daily;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   getStatsByCountry(countrySlug) {
     this.coronavirusApiService.getStatsByCountry(countrySlug).subscribe(
       data => {
-        // this.countryStatsDayOne = data;
-        const tempArray = [];
+        // console.log(data);
+        const confirmed = [];
+        const deaths = [];
+        const recovered = [];
         data.forEach(o => {
-          const newObj: any = {};
-          newObj.name = o.Date.substring(0,10);
-          newObj.value = o.Confirmed;
-          tempArray.push(newObj);
+          const confirmedObj: any = {};
+          const deathsObj: any = {};
+          const recoveredObj: any = {};
+          confirmedObj.name = o.Date.substring(0, 10);
+          confirmedObj.value = o.Confirmed;
+          confirmed.push(confirmedObj);
+
+          deathsObj.name = o.Date.substring(0, 10);
+          deathsObj.value = o.Deaths;
+          deaths.push(deathsObj);
+
+          recoveredObj.name = o.Date.substring(0, 10);
+          recoveredObj.value = o.Recovered;
+          recovered.push(recoveredObj);
         });
-        this.countryStatsDayOne = tempArray;
+        this.countryConfirmedDayOne = confirmed;
+        this.countryDeathsDayOne = deaths;
+        this.countryRecoveredDayOne = recovered;
       },
       error => {
         console.log(error);
