@@ -1,11 +1,11 @@
-<div class="jumbotron">Coronavirus Statistics</div>
+<div class="jumbotron"><h2>Coronavirus Statistics</h2></div>
 
 <!--<pre>-->
 <!--  {{summary | json}}-->
 <!--</pre>-->
 
-<h2>Global Statistics</h2>
-<div class="row">
+<h4>Global Statistics for {{summary.Date | date}}</h4>
+<div class="row" *ngIf="summary">
   <div class="col-md-4">
     <div>
       Total confirmed cases:
