@@ -41,6 +41,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.coronavirusApiService.getSummary().subscribe(
       data => {
+        console.log(data);
         this.summary = data;
         this.countries = data.Countries;
         this.countryStats = this.countryStats = this.countries.find(o => o.Slug === 'united-states');
