@@ -6,6 +6,9 @@ import {AppRoutingModule} from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {CoronavirusApiService} from './services/coronavirus-api.service';
 import {HttpClientModule} from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +18,10 @@ import {HttpClientModule} from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    TypeaheadModule.forRoot(),
+    FormsModule,
   ],
   providers: [
     CoronavirusApiService

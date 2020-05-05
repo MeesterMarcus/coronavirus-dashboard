@@ -11,8 +11,16 @@ export class CoronavirusApiService {
   constructor(private http: HttpClient) {
   }
 
-  getSummary() {
+  getSummary(): any {
     return this.http.get(this.BASE_API + 'summary');
+  }
+
+  getCountries(): any {
+    return this.http.get(this.BASE_API + 'countries');
+  }
+
+  getStatsByCountry(countrySlug): any {
+    return this.http.get(this.BASE_API + 'country' + '/' + countrySlug + '/status/confirmed');
   }
 
 }
