@@ -9,6 +9,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import {FormsModule} from '@angular/forms';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {FormsModule} from '@angular/forms';
     BrowserAnimationsModule,
     TypeaheadModule.forRoot(),
     FormsModule,
+    NgxChartsModule,
   ],
   providers: [
     CoronavirusApiService

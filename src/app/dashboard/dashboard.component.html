@@ -60,4 +60,21 @@
     </div>
   </div>
 
+  <ngx-charts-bar-vertical *ngIf="countryStatsDayOne"
+    [view]="view"
+    [scheme]="colorScheme"
+    [results]="countryStatsDayOne"
+    [gradient]="gradient"
+    [xAxis]="showXAxis"
+    [yAxis]="showYAxis"
+    [showXAxisLabel]="showXAxisLabel"
+    [showYAxisLabel]="showYAxisLabel"
+    [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel"
+  >
+  </ngx-charts-bar-vertical>
+
+
 </div>
+
+
