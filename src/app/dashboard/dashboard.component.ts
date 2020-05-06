@@ -87,7 +87,7 @@ export class DashboardComponent implements OnInit {
     this.coronavirusApiService.getUsStatisticsDaily().subscribe(
       data => {
         const daily = [];
-        const dailyData = data.reverse();
+        const dailyData = data.reverse().slice(data.length - 60, data.length);
         dailyData.forEach(o => {
           const dailyObj: any = {};
           const date = o.date + '';
@@ -112,10 +112,11 @@ export class DashboardComponent implements OnInit {
     this.coronavirusApiService.getStatsByCountry(countrySlug).subscribe(
       data => {
         // console.log(data);
+        const truncatedData = data.slice(data.length - 60, data.length);
         const confirmed = [];
         const deaths = [];
         const recovered = [];
-        data.forEach(o => {
+        truncatedData.forEach(o => {
           const confirmedObj: any = {};
           const deathsObj: any = {};
           const recoveredObj: any = {};
