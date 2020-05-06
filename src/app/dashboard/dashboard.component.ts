@@ -44,6 +44,8 @@ export class DashboardComponent implements OnInit {
   usDaily: any[];
   usStatistics: any;
 
+  isCollapsed = false;
+
   constructor(private coronavirusApiService: CoronavirusApiService) {
   }
 
@@ -84,17 +86,17 @@ export class DashboardComponent implements OnInit {
   retrieveUsDaily() {
     this.coronavirusApiService.getUsStatisticsDaily().subscribe(
       data => {
-        console.log(data);
         const daily = [];
         const dailyData = data.reverse();
         dailyData.forEach(o => {
-          console.log(o);
           const dailyObj: any = {};
-          dailyObj.name = o.date;
-          if (o.positiveIncrease === null) {
+          const date = o.date + '';
+          const formattedDate = date.slice(0, 4) + '-' + date.slice(4, 6) + '-' + date.slice(6, 8);
+          dailyObj.name = formattedDate;
+          if (o.deathIncrease === null) {
             dailyObj.value = 0;
           } else {
-            dailyObj.value = o.positiveIncrease;
+            dailyObj.value = o.deathIncrease;
           }
           daily.push(dailyObj);
         });

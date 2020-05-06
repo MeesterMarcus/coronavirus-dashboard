@@ -20,3 +20,8 @@
   background-color: #FF4461;
   border-color: #FF4461;
 }
+
+hr.solid {
+  border-top: 2px solid #999;
+}
+

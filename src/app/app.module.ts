@@ -10,6 +10,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import {FormsModule} from '@angular/forms';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
+import {CollapseModule} from 'ngx-bootstrap/collapse';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
     HttpClientModule,
     BrowserAnimationsModule,
     TypeaheadModule.forRoot(),
+    CollapseModule.forRoot(),
     FormsModule,
     NgxChartsModule,
   ],
