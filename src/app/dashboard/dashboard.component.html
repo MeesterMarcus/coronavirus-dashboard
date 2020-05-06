@@ -66,7 +66,7 @@
       <span>{{usStatistics[0].pending | number}}</span>
     </div>
 
-    <ngx-charts-bar-vertical *ngIf="usDaily"
+    <ngx-charts-bar-vertical class="chart-container ng-star-inserted" *ngIf="usDaily"
                              [view]="view"
                              [scheme]="colorSchemeDeath"
                              [results]="usDaily"

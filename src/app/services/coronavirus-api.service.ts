@@ -8,6 +8,7 @@ export class CoronavirusApiService {
 
   BASE_API = 'https://api.covid19api.com/';
   BASE_API_2 = 'http://covidtracking.com/api/';
+  NOVEL_COVID_API = 'https://disease.sh/v2/';
 
   constructor(private http: HttpClient) {
   }
