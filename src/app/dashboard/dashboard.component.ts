@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {CoronavirusApiService} from '../services/coronavirus-api.service';
-import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,21 +17,9 @@ export class DashboardComponent implements OnInit {
   showXAxisLabel = true;
   showYAxisLabel = true;
 
-  colorSchemeDefault = {
-    domain: ['#000000']
-  };
-
-  colorSchemeConf = {
-    domain: ['#ffa91e']
-  };
-
-  colorSchemeDeath = {
-    domain: ['#ff0400']
-  };
-
-  colorSchemeRecov = {
-    domain: ['#0fff2b']
-  };
+  colorSchemeConf = {domain: ['#ffa91e']};
+  colorSchemeDeath = {domain: ['#ff0400']};
+  colorSchemeRecov = {domain: ['#0fff2b']};
 
   summary: any;
   selectedCountry: string;
@@ -52,7 +39,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.coronavirusApiService.getSummary().subscribe(
       data => {
-        // console.log(data);
         this.summary = data;
         this.countries = data.Countries;
         this.countryStats = this.countryStats = this.countries.find(o => o.Slug === 'united-states');
@@ -76,7 +62,6 @@ export class DashboardComponent implements OnInit {
     this.coronavirusApiService.getUsStatistics().subscribe(
       data => {
         this.usStatistics = data;
-        // console.log(this.usStatistics);
       },
       error => {
         console.log(error);
@@ -113,33 +98,37 @@ export class DashboardComponent implements OnInit {
       data => {
         // console.log(data);
         const truncatedData = data.slice(data.length - 60, data.length);
-        const confirmed = [];
-        const deaths = [];
-        const recovered = [];
-        truncatedData.forEach(o => {
-          const confirmedObj: any = {};
-          const deathsObj: any = {};
-          const recoveredObj: any = {};
-          confirmedObj.name = o.Date.substring(0, 10);
-          confirmedObj.value = o.Confirmed;
-          confirmed.push(confirmedObj);
-
-          deathsObj.name = o.Date.substring(0, 10);
-          deathsObj.value = o.Deaths;
-          deaths.push(deathsObj);
-
-          recoveredObj.name = o.Date.substring(0, 10);
-          recoveredObj.value = o.Recovered;
-          recovered.push(recoveredObj);
-        });
-        this.countryConfirmedDayOne = confirmed;
-        this.countryDeathsDayOne = deaths;
-        this.countryRecoveredDayOne = recovered;
+        this.separateData(truncatedData);
       },
       error => {
         console.log(error);
       }
     );
+  }
+
+  private separateData(data) {
+    const confirmed = [];
+    const deaths = [];
+    const recovered = [];
+    data.forEach(o => {
+      const confirmedObj: any = {};
+      const deathsObj: any = {};
+      const recoveredObj: any = {};
+      confirmedObj.name = o.Date.substring(0, 10);
+      confirmedObj.value = o.Confirmed;
+      confirmed.push(confirmedObj);
+
+      deathsObj.name = o.Date.substring(0, 10);
+      deathsObj.value = o.Deaths;
+      deaths.push(deathsObj);
+
+      recoveredObj.name = o.Date.substring(0, 10);
+      recoveredObj.value = o.Recovered;
+      recovered.push(recoveredObj);
+    });
+    this.countryConfirmedDayOne = confirmed;
+    this.countryDeathsDayOne = deaths;
+    this.countryRecoveredDayOne = recovered;
   }
 
 }
