@@ -62,8 +62,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "coronavirus-dashboard:build",
-            "port": 80
+            "browserTarget": "coronavirus-dashboard:build"
           },
           "configurations": {
             "production": {
