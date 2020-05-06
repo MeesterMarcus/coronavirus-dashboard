@@ -26,7 +26,7 @@
 
   <hr class="solid">
 
-  <h4 style="margin-top:15px;">US Specific Statistics</h4>
+  <h4 class="header-margin">US Specific Statistics</h4>
   <div class="row" *ngIf="!usStatistics">Loading...</div>
   <div class="row" *ngIf="usStatistics">
     <div class="col-md-4 card">
@@ -83,15 +83,14 @@
 
   <hr class="solid">
 
-  <h4 style="margin-top:15px;">Summary for {{countryStats.Country}}</h4>
+  <h4 class="header-margin">Summary for {{countryStats.Country}}</h4>
   <div class="row">
     <input [(ngModel)]="selectedCountry"
            [typeahead]="countries"
            placeholder="Enter country name"
            (typeaheadOnSelect)="retrieveCountry($event)"
            typeaheadOptionField="Country"
-           class="form-control"
-           style="margin-top: 10px; margin-bottom: 10px;">
+           class="form-control country-select">
   </div>
 
 
@@ -117,7 +116,7 @@
   </div>
 
   <div class="row">
-      <button style="margin-top:10px; margin-bottom: 10px;" type="button" class="btn btn-primary ml-auto mr-3"
+      <button type="button" class="btn btn-primary button-toggle ml-auto mr-3"
               (click)="isCollapsed = !isCollapsed"
               [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">
         <span *ngIf="isCollapsed">

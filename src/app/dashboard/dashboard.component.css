@@ -25,3 +25,16 @@ hr.solid {
   border-top: 2px solid #999;
 }
 
+.header-margin {
+  margin-top:15px;
+}
+
+.country-select {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.button-toggle {
+  margin-top:10px;
+  margin-bottom: 10px;
+}
