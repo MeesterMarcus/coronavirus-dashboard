@@ -1,7 +1,7 @@
 <div *ngIf="summary">
   <!--  Global Summary -->
   <mat-card class="section-margin">
-    <mat-toolbar color="accent" class="header-margin">Global Statistics for {{summary.Date | date}}</mat-toolbar>
+    <mat-toolbar color="accent" class="header-margin wrap">Global Statistics Today</mat-toolbar>
     <mat-progress-bar mode="indeterminate" *ngIf="!summary"></mat-progress-bar>
     <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px">
       <mat-card fxFlex="30%">
@@ -62,7 +62,7 @@
       </mat-card>
       <mat-card fxFlex="30%">
         <div class="black">
-          Hospitalized Currently:
+          In Hospital:
         </div>
         <span>{{usStatistics[0].hospitalizedCurrently | number}}</span>
       </mat-card>
@@ -79,7 +79,7 @@
 <!--        <span>{{usStatistics[0].pending | number}}</span>-->
 <!--      </mat-card>-->
 
-      <app-graph
+      <app-graph fxFlexFill
         [data]="usDaily"
         [graphColor]="'red'"
         [xAxisLabel]="'Date'"
@@ -91,7 +91,7 @@
 
   <!--  Country Summary Statistics-->
   <mat-card class="section-margin">
-    <mat-toolbar color="accent" class="header-margin">Summary for {{countryStats.Country}}</mat-toolbar>
+    <mat-toolbar color="accent" class="header-margin">Summary for <br>{{countryStats.Country}}</mat-toolbar>
     <mat-progress-bar mode="indeterminate" *ngIf="!countryStats"></mat-progress-bar>
     <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px">
       <input [(ngModel)]="selectedCountry"
@@ -124,38 +124,38 @@
       </mat-card>
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="flex-end">
-      <div fxFlex="14%">
-        <button mat-raised-button type="button" color="primary" class="button-toggle"
-                (click)="isCollapsed = !isCollapsed"
-                [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">
-        <span *ngIf="isCollapsed">
-          Show Charts
-        </span>
-          <span *ngIf="!isCollapsed">
-          Hide Charts
-        </span>
-        </button>
-      </div>
-    </div>
+<!--    <div fxLayout="row" fxLayoutAlign="flex-end">-->
+<!--      <div fxFlex="14%">-->
+<!--        <button mat-raised-button type="button" color="primary" class="button-toggle"-->
+<!--                (click)="isCollapsed = !isCollapsed"-->
+<!--                [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">-->
+<!--        <span *ngIf="isCollapsed">-->
+<!--          Show Charts-->
+<!--        </span>-->
+<!--          <span *ngIf="!isCollapsed">-->
+<!--          Hide Charts-->
+<!--        </span>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </div>-->
 
     <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px" id="collapseBasic" [collapse]="isCollapsed">
 
-      <app-graph
+      <app-graph fxFlexFill
         [data]="countryConfirmedDayOne"
         [graphColor]="'orange'"
         [xAxisLabel]="'Date'"
         [yAxisLabel]="'Confirmed Cases'">
       </app-graph>
 
-      <app-graph
+      <app-graph fxFlexFill
         [data]="countryDeathsDayOne"
         [graphColor]="'red'"
         [xAxisLabel]="'Date'"
         [yAxisLabel]="'Deaths'">
       </app-graph>
 
-      <app-graph
+      <app-graph fxFlexFill
         [data]="countryRecoveredDayOne"
         [graphColor]="'green'"
         [xAxisLabel]="'Date'"
