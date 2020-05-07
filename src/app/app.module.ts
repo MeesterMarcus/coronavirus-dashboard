@@ -11,11 +11,13 @@ import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import {FormsModule} from '@angular/forms';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {CollapseModule} from 'ngx-bootstrap/collapse';
+import { GraphComponent } from './graph/graph.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent
+    DashboardComponent,
+    GraphComponent
   ],
   imports: [
     BrowserModule,
