@@ -4,7 +4,7 @@ import {CoronavirusApiService} from '../services/coronavirus-api.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
 
@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   countryConfirmedDayOne: any[];
   countryDeathsDayOne: any[];
   countryRecoveredDayOne: any[];
+  usDailyAll: any[];
   usDaily: any[];
   usStatistics: any;
   isCollapsed = false;
@@ -58,6 +59,7 @@ export class DashboardComponent implements OnInit {
   retrieveUsDaily() {
     this.coronavirusApiService.getUsStatisticsDaily().subscribe(
       data => {
+        this.usDailyAll = data.reverse();
         const daily = [];
         const dailyData = data.reverse().slice(data.length - 60, data.length);
         dailyData.forEach(o => {

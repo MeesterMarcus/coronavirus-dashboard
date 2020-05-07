@@ -1,74 +1,81 @@
-<div class="jumbotron"><h2>COVID-19 Statistics</h2></div>
-
 <div *ngIf="summary">
   <!--  Global Summary -->
   <section>
-    <h4>Global Statistics for {{summary.Date | date}}</h4>
-    <div class="row">
-      <div class="col-md-4 card">
+    <mat-toolbar color="accent" class="header-margin">Global Statistics for {{summary.Date | date}}</mat-toolbar>
+    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px">
+      <mat-card fxFlex="30%">
         <div class="orange">
           Total confirmed cases:
         </div>
         <span>{{summary.Global.TotalConfirmed | number}}</span>
-      </div>
-      <div class="col-md-4 card">
+      </mat-card>
+      <mat-card fxFlex="30%">
         <div class="red">
           Total deaths:
         </div>
         <span>{{summary.Global.TotalDeaths | number}}</span>
-      </div>
-      <div class="col-md-4 card">
+      </mat-card>
+      <mat-card fxFlex="30%">
         <div class="green">
           Total recovered cases:
         </div>
         <span>{{summary.Global.TotalRecovered | number}}</span>
-      </div>
+      </mat-card>
     </div>
   </section>
 
-  <hr class="solid">
-
   <!--  US Specific Statistics-->
   <section>
-    <h4 class="header-margin">US Specific Statistics</h4>
-    <div class="row" *ngIf="!usStatistics">Loading...</div>
-    <div class="row" *ngIf="usStatistics">
-      <div class="col-md-4 card">
-        <div>
+    <mat-toolbar color="accent" class="header-margin">US Specific Statistics</mat-toolbar>
+    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px" *ngIf="usStatistics && usDaily">
+      <mat-card fxFlex="30%">
+        <div class="black">
+          Total deaths:
+        </div>
+        <span>{{usStatistics[0].death | number}}</span>
+      </mat-card>
+      <mat-card fxFlex="30%">
+        <div class="black">
+          New Deaths:
+        </div>
+        <span>{{usDailyAll[0].deathIncrease | number}}</span>
+      </mat-card>
+      <mat-card fxFlex="30%">
+        <div class="black">
           Positive Tests:
         </div>
         <span>{{usStatistics[0].positive | number}}</span>
-      </div>
-      <div class="col-md-4 card">
-        <div>
+      </mat-card>
+      <mat-card fxFlex="30%">
+        <div class="black">
           Negative Tests:
         </div>
         <span>{{usStatistics[0].negative | number}}</span>
-      </div>
-      <div class="col-md-4 card">
-        <div>
+      </mat-card>
+      <mat-card fxFlex="30%">
+        <div class="black">
           On Ventilator Currently:
         </div>
         <span>{{usStatistics[0].onVentilatorCurrently | number}}</span>
-      </div>
-      <div class="col-md-4 card">
-        <div>
+      </mat-card>
+      <mat-card fxFlex="30%">
+        <div class="black">
           Hospitalized Currently:
         </div>
         <span>{{usStatistics[0].hospitalizedCurrently | number}}</span>
-      </div>
-      <div class="col-md-4 card">
-        <div>
-          In ICU Currently:
-        </div>
-        <span>{{usStatistics[0].inIcuCurrently | number}}</span>
-      </div>
-      <div class="col-md-4 card">
-        <div>
-          Pending:
-        </div>
-        <span>{{usStatistics[0].pending | number}}</span>
-      </div>
+      </mat-card>
+<!--      <mat-card fxFlex="30%">-->
+<!--        <div class="black">-->
+<!--          In ICU Currently:-->
+<!--        </div>-->
+<!--        <span>{{usStatistics[0].inIcuCurrently | number}}</span>-->
+<!--      </mat-card>-->
+<!--      <mat-card fxFlex="30%">-->
+<!--        <div class="black">-->
+<!--          Pending:-->
+<!--        </div>-->
+<!--        <span>{{usStatistics[0].pending | number}}</span>-->
+<!--      </mat-card>-->
 
       <app-graph
         [data]="usDaily"
@@ -80,56 +87,56 @@
     </div>
   </section>
 
-  <hr class="solid">
-
   <!--  Country Summary Statistics-->
   <section>
-    <h4 class="header-margin">Summary for {{countryStats.Country}}</h4>
-    <div class="row">
+    <mat-toolbar color="accent" class="header-margin">Summary for {{countryStats.Country}}</mat-toolbar>
+    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px">
       <input [(ngModel)]="selectedCountry"
              [typeahead]="countries"
              placeholder="Enter country name"
              (typeaheadOnSelect)="retrieveCountry($event)"
              typeaheadOptionField="Country"
+             fxFlex="90%"
              class="form-control country-select">
     </div>
 
-    <div class="row" *ngIf="countryStats">
-      <div class="col-md-4 card">
+    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px" *ngIf="countryStats">
+      <mat-card fxFlex="30%">
         <div class="orange">
           Total confirmed cases:
         </div>
         <span>{{countryStats.TotalConfirmed | number}}</span>
-      </div>
-      <div class="col-md-4 card">
+      </mat-card>
+      <mat-card fxFlex="30%">
         <div class="red">
           Total deaths:
         </div>
         <span>{{countryStats.TotalDeaths | number}}</span>
-      </div>
-      <div class="col-md-4 card">
+      </mat-card>
+      <mat-card fxFlex="30%">
         <div class="green">
           Total recovered cases:
         </div>
         <span>{{countryStats.TotalRecovered | number}}</span>
-      </div>
+      </mat-card>
     </div>
 
-    <div class="row">
-      <button type="button" class="btn btn-primary button-toggle ml-auto mr-3"
-              (click)="isCollapsed = !isCollapsed"
-              [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">
+    <div fxLayout="row" fxLayoutAlign="flex-end">
+      <div fxFlex="14%">
+        <button mat-raised-button type="button" color="primary" class="button-toggle"
+                (click)="isCollapsed = !isCollapsed"
+                [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">
         <span *ngIf="isCollapsed">
           Show Charts
         </span>
-        <span *ngIf="!isCollapsed">
+          <span *ngIf="!isCollapsed">
           Hide Charts
         </span>
-      </button>
+        </button>
+      </div>
     </div>
 
-    <div class="row" *ngIf="!countryConfirmedDayOne || !countryDeathsDayOne || !countryRecoveredDayOne">Loading...</div>
-    <div id="collapseBasic" [collapse]="isCollapsed">
+    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px" id="collapseBasic" [collapse]="isCollapsed">
 
       <app-graph
         [data]="countryConfirmedDayOne"

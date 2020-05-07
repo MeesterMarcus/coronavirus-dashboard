@@ -12,6 +12,10 @@ import {FormsModule} from '@angular/forms';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import { GraphComponent } from './graph/graph.component';
+import {MaterialModule} from './material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
+
 
 @NgModule({
   declarations: [
@@ -22,12 +26,14 @@ import { GraphComponent } from './graph/graph.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MaterialModule,
+    FlexLayoutModule,
     HttpClientModule,
     BrowserAnimationsModule,
     TypeaheadModule.forRoot(),
     CollapseModule.forRoot(),
     FormsModule,
-    NgxChartsModule,
+    NgxChartsModule
   ],
   providers: [
     CoronavirusApiService

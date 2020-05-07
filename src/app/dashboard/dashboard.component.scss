@@ -3,6 +3,7 @@ hr.solid {
 }
 
 .header-margin {
+  margin-bottom:15px;
   margin-top:15px;
 }
 
@@ -18,16 +19,29 @@ hr.solid {
 
 .orange {
   color: orange;
+  font-weight: bold;
 }
 
 .red {
   color: red;
+  font-weight: bold;
 }
 
 .green {
   color: darkgreen;
+  font-weight: bold;
+}
+
+.black {
+  color: black;
+  font-weight: bold;
 }
 
 .chart-custom {
   overflow-x: scroll;
+}
+
+.card-margin {
+  margin-left: 2px;
+  margin-right: 2px;
 }
