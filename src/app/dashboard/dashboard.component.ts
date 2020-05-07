@@ -61,7 +61,7 @@ export class DashboardComponent implements OnInit {
       data => {
         this.usDailyAll = data.reverse();
         const daily = [];
-        const dailyData = data.reverse().slice(data.length - 60, data.length);
+        const dailyData = this.usDailyAll.slice(data.length - 60, data.length);
         dailyData.forEach(o => {
           const dailyObj: any = {};
           const date = o.date + '';

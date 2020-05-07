@@ -1,7 +1,8 @@
 <div *ngIf="summary">
   <!--  Global Summary -->
-  <section>
+  <mat-card class="section-margin">
     <mat-toolbar color="accent" class="header-margin">Global Statistics for {{summary.Date | date}}</mat-toolbar>
+    <mat-progress-bar mode="indeterminate" *ngIf="!summary"></mat-progress-bar>
     <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px">
       <mat-card fxFlex="30%">
         <div class="orange">
@@ -22,11 +23,12 @@
         <span>{{summary.Global.TotalRecovered | number}}</span>
       </mat-card>
     </div>
-  </section>
+  </mat-card>
 
   <!--  US Specific Statistics-->
-  <section>
+  <mat-card class="section-margin">
     <mat-toolbar color="accent" class="header-margin">US Specific Statistics</mat-toolbar>
+    <mat-progress-bar mode="indeterminate" *ngIf="!usStatistics"></mat-progress-bar>
     <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px" *ngIf="usStatistics && usDaily">
       <mat-card fxFlex="30%">
         <div class="black">
@@ -38,7 +40,7 @@
         <div class="black">
           New Deaths:
         </div>
-        <span>{{usDailyAll[0].deathIncrease | number}}</span>
+        <span>{{usDailyAll[usDailyAll.length-1].deathIncrease | number}}</span>
       </mat-card>
       <mat-card fxFlex="30%">
         <div class="black">
@@ -85,11 +87,12 @@
       </app-graph>
 
     </div>
-  </section>
+  </mat-card>
 
   <!--  Country Summary Statistics-->
-  <section>
+  <mat-card class="section-margin">
     <mat-toolbar color="accent" class="header-margin">Summary for {{countryStats.Country}}</mat-toolbar>
+    <mat-progress-bar mode="indeterminate" *ngIf="!countryStats"></mat-progress-bar>
     <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px">
       <input [(ngModel)]="selectedCountry"
              [typeahead]="countries"
@@ -160,7 +163,7 @@
       </app-graph>
 
     </div>
-  </section>
+  </mat-card>
 </div>
 
 
