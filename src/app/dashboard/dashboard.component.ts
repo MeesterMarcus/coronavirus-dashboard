@@ -8,19 +8,6 @@ import {CoronavirusApiService} from '../services/coronavirus-api.service';
 })
 export class DashboardComponent implements OnInit {
 
-  view: any[] = [900, 400];
-
-  // options for the chart
-  showXAxis = true;
-  showYAxis = true;
-  gradient = false;
-  showXAxisLabel = true;
-  showYAxisLabel = true;
-
-  colorSchemeConf = {domain: ['#ffa91e']};
-  colorSchemeDeath = {domain: ['#ff0400']};
-  colorSchemeRecov = {domain: ['#0fff2b']};
-
   summary: any;
   selectedCountry: string;
   countries: any;
@@ -30,7 +17,6 @@ export class DashboardComponent implements OnInit {
   countryRecoveredDayOne: any[];
   usDaily: any[];
   usStatistics: any;
-
   isCollapsed = false;
 
   constructor(private coronavirusApiService: CoronavirusApiService) {
@@ -68,6 +54,7 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
+
   retrieveUsDaily() {
     this.coronavirusApiService.getUsStatisticsDaily().subscribe(
       data => {
