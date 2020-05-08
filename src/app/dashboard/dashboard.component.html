@@ -1,7 +1,7 @@
 <div *ngIf="summary">
   <!--  Global Summary -->
   <mat-card class="section-margin">
-    <mat-toolbar color="accent" class="header-margin wrap">Global Statistics Today</mat-toolbar>
+    <mat-toolbar color="accent" class="header-margin wrap">Global Statistics</mat-toolbar>
     <mat-progress-bar mode="indeterminate" *ngIf="!summary"></mat-progress-bar>
     <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px">
       <mat-card fxFlex="30%">
@@ -25,81 +25,17 @@
     </div>
   </mat-card>
 
-  <!--  US Specific Statistics-->
-<!--  <mat-card class="section-margin">-->
-<!--    <mat-toolbar color="accent" class="header-margin">US Specific Statistics</mat-toolbar>-->
-<!--    <mat-progress-bar mode="indeterminate" *ngIf="!usStatistics"></mat-progress-bar>-->
-<!--    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px" *ngIf="usStatistics && usDaily">-->
-<!--      <mat-card fxFlex="30%">-->
-<!--        <div class="black">-->
-<!--          Total deaths:-->
-<!--        </div>-->
-<!--        <span>{{usStatistics[0].death | number}}</span>-->
-<!--      </mat-card>-->
-<!--      <mat-card fxFlex="30%">-->
-<!--        <div class="black">-->
-<!--          New Deaths:-->
-<!--        </div>-->
-<!--        <span>{{usDailyAll[usDailyAll.length-1].deathIncrease | number}}</span>-->
-<!--      </mat-card>-->
-<!--      <mat-card fxFlex="30%">-->
-<!--        <div class="black">-->
-<!--          Positive Tests:-->
-<!--        </div>-->
-<!--        <span>{{usStatistics[0].positive | number}}</span>-->
-<!--      </mat-card>-->
-<!--      <mat-card fxFlex="30%">-->
-<!--        <div class="black">-->
-<!--          Negative Tests:-->
-<!--        </div>-->
-<!--        <span>{{usStatistics[0].negative | number}}</span>-->
-<!--      </mat-card>-->
-<!--      <mat-card fxFlex="30%">-->
-<!--        <div class="black">-->
-<!--          On Ventilator:-->
-<!--        </div>-->
-<!--        <span>{{usStatistics[0].onVentilatorCurrently | number}}</span>-->
-<!--      </mat-card>-->
-<!--      <mat-card fxFlex="30%">-->
-<!--        <div class="black">-->
-<!--          In Hospital:-->
-<!--        </div>-->
-<!--        <span>{{usStatistics[0].hospitalizedCurrently | number}}</span>-->
-<!--      </mat-card>-->
-<!--      <mat-card fxFlex="30%">-->
-<!--        <div class="black">-->
-<!--          In ICU Currently:-->
-<!--        </div>-->
-<!--        <span>{{usStatistics[0].inIcuCurrently | number}}</span>-->
-<!--      </mat-card>-->
-<!--      <mat-card fxFlex="30%">-->
-<!--        <div class="black">-->
-<!--          Pending:-->
-<!--        </div>-->
-<!--        <span>{{usStatistics[0].pending | number}}</span>-->
-<!--      </mat-card>-->
-
-<!--      <app-graph fxFlexFill-->
-<!--        [data]="usDaily"-->
-<!--        [graphColor]="'red'"-->
-<!--        [xAxisLabel]="'Date'"-->
-<!--        [yAxisLabel]="'New Deaths'">-->
-<!--      </app-graph>-->
-
-<!--    </div>-->
-<!--  </mat-card>-->
-
   <!--  Country Summary Statistics-->
   <mat-card class="section-margin">
-    <mat-toolbar color="accent" class="header-margin">Summary for <br>{{countryStats.Country}}</mat-toolbar>
+    <mat-toolbar color="accent" class="header-margin">{{countryStats.Country}}</mat-toolbar>
     <mat-progress-bar mode="indeterminate" *ngIf="!countryStats"></mat-progress-bar>
-    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px">
+    <div fxLayout="row wrap" fxLayoutAlign="center">
+      <label><b>Enter country name:</b></label>
       <input [(ngModel)]="selectedCountry"
              [typeahead]="countries"
-             placeholder="Enter country name"
              (typeaheadOnSelect)="retrieveCountry($event)"
+             placeholder="Type here"
              typeaheadOptionField="Country"
-             fxFlex="90%"
              class="form-control country-select">
     </div>
 
@@ -108,19 +44,19 @@
         <div class="orange">
           Total confirmed cases:
         </div>
-        <span>{{countryStats.TotalConfirmed | number}}</span>
+        <span>{{totalConfirm | number}}</span>
       </mat-card>
       <mat-card fxFlex="30%">
         <div class="red">
           Total deaths:
         </div>
-        <span>{{countryStats.TotalDeaths | number}}</span>
+        <span>{{totalDeath | number}}</span>
       </mat-card>
       <mat-card fxFlex="30%">
         <div class="green">
           Total recovered cases:
         </div>
-        <span>{{countryStats.TotalRecovered | number}}</span>
+        <span>{{totalRecov | number}}</span>
       </mat-card>
     </div>
     <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px" *ngIf="countryStats">
@@ -144,6 +80,7 @@
       </mat-card>
     </div>
 
+    <mat-toolbar color="accent" class="header-margin">{{countryStats.Country}} Trends</mat-toolbar>
     <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px" id="collapseBasic" [collapse]="isCollapsed">
 
       <app-graph fxFlexFill
@@ -160,12 +97,12 @@
         [yAxisLabel]="'New Deaths'">
       </app-graph>
 
-      <app-graph fxFlexFill
-        [data]="countryRecoveredDayOne"
-        [graphColor]="'green'"
-        [xAxisLabel]="'Date'"
-        [yAxisLabel]="'New Recovered'">
-      </app-graph>
+<!--      <app-graph fxFlexFill-->
+<!--        [data]="countryRecoveredDayOne"-->
+<!--        [graphColor]="'green'"-->
+<!--        [xAxisLabel]="'Date'"-->
+<!--        [yAxisLabel]="'New Recovered'">-->
+<!--      </app-graph>-->
 
     </div>
   </mat-card>

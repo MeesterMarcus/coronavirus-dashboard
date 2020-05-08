@@ -21,6 +21,11 @@ export class DashboardComponent implements OnInit {
   countryNewDeath: number;
   countryNewRecov: number;
 
+  totalConfirm: number;
+  totalDeath: number;
+  totalRecov: number;
+  date: any;
+
   isCollapsed = false;
 
   constructor(private coronavirusApiService: CoronavirusApiService) {
@@ -65,37 +70,43 @@ export class DashboardComponent implements OnInit {
     let prevDeaths = 0;
     let prevConfirmed = 0;
     let prevRecov = 0;
+    const sz = data.length;
+    let i = 0;
     data.forEach(o => {
-      const confirmedObj: any = {};
-      const deathsObj: any = {};
-      const recoveredObj: any = {};
+      if (i > 0) {
+        const confirmedObj: any = {};
+        const deathsObj: any = {};
+        const recoveredObj: any = {};
 
-      confirmedObj.name = o.Date.substring(0, 10);
-      confirmedObj.value = o.Confirmed - prevConfirmed;
-      prevConfirmed = o.Confirmed;
-      confirmed.push(confirmedObj);
+        confirmedObj.name = o.Date.substring(0, 10);
+        confirmedObj.value = o.Confirmed - prevConfirmed;
+        prevConfirmed = o.Confirmed;
+        confirmed.push(confirmedObj);
 
-      deathsObj.name = o.Date.substring(0, 10);
-      deathsObj.value = o.Deaths - prevDeaths;
-      prevDeaths = o.Deaths;
-      deaths.push(deathsObj);
+        deathsObj.name = o.Date.substring(0, 10);
+        deathsObj.value = o.Deaths - prevDeaths;
+        prevDeaths = o.Deaths;
+        deaths.push(deathsObj);
 
-      recoveredObj.name = o.Date.substring(0, 10);
-      recoveredObj.value = o.Recovered - prevRecov;
-      prevRecov = o.Recovered;
-      recovered.push(recoveredObj);
+        recoveredObj.name = o.Date.substring(0, 10);
+        recoveredObj.value = o.Recovered - prevRecov;
+        prevRecov = o.Recovered;
+        recovered.push(recoveredObj);
+      }
+      i++;
     });
     this.countryConfirmedDayOne = confirmed;
     this.countryDeathsDayOne = deaths;
     this.countryRecoveredDayOne = recovered;
 
-    this.countryNewConfirm = data[this.countryConfirmedDayOne.length - 1].Confirmed -
-      data[this.countryConfirmedDayOne.length - 2].Confirmed;
-    this.countryNewDeath = data[this.countryConfirmedDayOne.length - 1].Deaths -
-      data[this.countryConfirmedDayOne.length - 2].Deaths;
-    this.countryNewRecov = data[this.countryConfirmedDayOne.length - 1].Recovered -
-      data[this.countryConfirmedDayOne.length - 2].Recovered;
-    console.log(this.countryConfirmedDayOne);
+    this.countryNewConfirm = data[sz - 1].Confirmed - data[sz - 2].Confirmed;
+    this.countryNewDeath = data[sz - 1].Deaths - data[sz - 2].Deaths;
+    this.countryNewRecov = data[sz - 1].Recovered - data[sz - 2].Recovered;
+    this.totalConfirm = data[sz - 1].Confirmed;
+    this.totalDeath = data[sz - 1].Deaths;
+    this.totalRecov = data[sz - 1].Recovered;
+    this.date = data[sz - 1].Date.substring(0, 10);
+
   }
 
 }

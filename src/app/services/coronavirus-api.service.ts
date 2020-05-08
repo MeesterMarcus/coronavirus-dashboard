@@ -18,10 +18,6 @@ export class CoronavirusApiService {
     return this.http.get(this.BASE_API + 'summary');
   }
 
-  getCountries(): any {
-    return this.http.get(this.BASE_API + 'countries');
-  }
-
   getStatsByCountry(countrySlug): any {
     return this.http.get(this.BASE_API + 'country' + '/' + countrySlug);
   }
