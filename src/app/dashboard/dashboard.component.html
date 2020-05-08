@@ -26,52 +26,52 @@
   </mat-card>
 
   <!--  US Specific Statistics-->
-  <mat-card class="section-margin">
-    <mat-toolbar color="accent" class="header-margin">US Specific Statistics</mat-toolbar>
-    <mat-progress-bar mode="indeterminate" *ngIf="!usStatistics"></mat-progress-bar>
-    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px" *ngIf="usStatistics && usDaily">
-      <mat-card fxFlex="30%">
-        <div class="black">
-          Total deaths:
-        </div>
-        <span>{{usStatistics[0].death | number}}</span>
-      </mat-card>
+<!--  <mat-card class="section-margin">-->
+<!--    <mat-toolbar color="accent" class="header-margin">US Specific Statistics</mat-toolbar>-->
+<!--    <mat-progress-bar mode="indeterminate" *ngIf="!usStatistics"></mat-progress-bar>-->
+<!--    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px" *ngIf="usStatistics && usDaily">-->
+<!--      <mat-card fxFlex="30%">-->
+<!--        <div class="black">-->
+<!--          Total deaths:-->
+<!--        </div>-->
+<!--        <span>{{usStatistics[0].death | number}}</span>-->
+<!--      </mat-card>-->
 <!--      <mat-card fxFlex="30%">-->
 <!--        <div class="black">-->
 <!--          New Deaths:-->
 <!--        </div>-->
 <!--        <span>{{usDailyAll[usDailyAll.length-1].deathIncrease | number}}</span>-->
 <!--      </mat-card>-->
-      <mat-card fxFlex="30%">
-        <div class="black">
-          Positive Tests:
-        </div>
-        <span>{{usStatistics[0].positive | number}}</span>
-      </mat-card>
-      <mat-card fxFlex="30%">
-        <div class="black">
-          Negative Tests:
-        </div>
-        <span>{{usStatistics[0].negative | number}}</span>
-      </mat-card>
-      <mat-card fxFlex="30%">
-        <div class="black">
-          On Ventilator:
-        </div>
-        <span>{{usStatistics[0].onVentilatorCurrently | number}}</span>
-      </mat-card>
-      <mat-card fxFlex="30%">
-        <div class="black">
-          In Hospital:
-        </div>
-        <span>{{usStatistics[0].hospitalizedCurrently | number}}</span>
-      </mat-card>
-      <mat-card fxFlex="30%">
-        <div class="black">
-          In ICU Currently:
-        </div>
-        <span>{{usStatistics[0].inIcuCurrently | number}}</span>
-      </mat-card>
+<!--      <mat-card fxFlex="30%">-->
+<!--        <div class="black">-->
+<!--          Positive Tests:-->
+<!--        </div>-->
+<!--        <span>{{usStatistics[0].positive | number}}</span>-->
+<!--      </mat-card>-->
+<!--      <mat-card fxFlex="30%">-->
+<!--        <div class="black">-->
+<!--          Negative Tests:-->
+<!--        </div>-->
+<!--        <span>{{usStatistics[0].negative | number}}</span>-->
+<!--      </mat-card>-->
+<!--      <mat-card fxFlex="30%">-->
+<!--        <div class="black">-->
+<!--          On Ventilator:-->
+<!--        </div>-->
+<!--        <span>{{usStatistics[0].onVentilatorCurrently | number}}</span>-->
+<!--      </mat-card>-->
+<!--      <mat-card fxFlex="30%">-->
+<!--        <div class="black">-->
+<!--          In Hospital:-->
+<!--        </div>-->
+<!--        <span>{{usStatistics[0].hospitalizedCurrently | number}}</span>-->
+<!--      </mat-card>-->
+<!--      <mat-card fxFlex="30%">-->
+<!--        <div class="black">-->
+<!--          In ICU Currently:-->
+<!--        </div>-->
+<!--        <span>{{usStatistics[0].inIcuCurrently | number}}</span>-->
+<!--      </mat-card>-->
 <!--      <mat-card fxFlex="30%">-->
 <!--        <div class="black">-->
 <!--          Pending:-->
@@ -79,15 +79,15 @@
 <!--        <span>{{usStatistics[0].pending | number}}</span>-->
 <!--      </mat-card>-->
 
-      <app-graph fxFlexFill
-        [data]="usDaily"
-        [graphColor]="'red'"
-        [xAxisLabel]="'Date'"
-        [yAxisLabel]="'New Deaths'">
-      </app-graph>
+<!--      <app-graph fxFlexFill-->
+<!--        [data]="usDaily"-->
+<!--        [graphColor]="'red'"-->
+<!--        [xAxisLabel]="'Date'"-->
+<!--        [yAxisLabel]="'New Deaths'">-->
+<!--      </app-graph>-->
 
-    </div>
-  </mat-card>
+<!--    </div>-->
+<!--  </mat-card>-->
 
   <!--  Country Summary Statistics-->
   <mat-card class="section-margin">
@@ -123,6 +123,27 @@
         <span>{{countryStats.TotalRecovered | number}}</span>
       </mat-card>
     </div>
+    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px" *ngIf="countryStats">
+      <mat-card fxFlex="30%">
+        <div class="orange">
+          New confirmed cases:
+        </div>
+        <span>{{countryNewConfirm| number}}</span>
+      </mat-card>
+      <mat-card fxFlex="30%">
+        <div class="red">
+          New deaths:
+        </div>
+        <span>{{countryNewDeath | number}}</span>
+      </mat-card>
+      <mat-card fxFlex="30%">
+        <div class="green">
+          New recovered cases:
+        </div>
+        <span>{{countryNewRecov | number}}</span>
+      </mat-card>
+    </div>
+
 
 <!--    <div fxLayout="row" fxLayoutAlign="flex-end">-->
 <!--      <div fxFlex="14%">-->
@@ -145,21 +166,21 @@
         [data]="countryConfirmedDayOne"
         [graphColor]="'orange'"
         [xAxisLabel]="'Date'"
-        [yAxisLabel]="'Confirmed Cases'">
+        [yAxisLabel]="'New Cases'">
       </app-graph>
 
       <app-graph fxFlexFill
         [data]="countryDeathsDayOne"
         [graphColor]="'red'"
         [xAxisLabel]="'Date'"
-        [yAxisLabel]="'Deaths'">
+        [yAxisLabel]="'New Deaths'">
       </app-graph>
 
       <app-graph fxFlexFill
         [data]="countryRecoveredDayOne"
         [graphColor]="'green'"
         [xAxisLabel]="'Date'"
-        [yAxisLabel]="'Recovered'">
+        [yAxisLabel]="'New Recovered'">
       </app-graph>
 
     </div>

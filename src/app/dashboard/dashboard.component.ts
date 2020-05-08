@@ -12,12 +12,15 @@ export class DashboardComponent implements OnInit {
   selectedCountry: string;
   countries: any;
   countryStats: any;
+
   countryConfirmedDayOne: any[];
   countryDeathsDayOne: any[];
   countryRecoveredDayOne: any[];
-  usDailyAll: any[];
-  usDaily: any[];
-  usStatistics: any;
+
+  countryNewConfirm: number;
+  countryNewDeath: number;
+  countryNewRecov: number;
+
   isCollapsed = false;
 
   constructor(private coronavirusApiService: CoronavirusApiService) {
@@ -30,8 +33,6 @@ export class DashboardComponent implements OnInit {
         this.countries = data.Countries;
         this.countryStats = this.countryStats = this.countries.find(o => o.Slug === 'united-states');
         this.getStatsByCountry('united-states');
-        this.retrieveUs();
-        this.retrieveUsDaily();
       },
       error => {
         console.log(error);
@@ -43,43 +44,6 @@ export class DashboardComponent implements OnInit {
     const countrySlug = event.item.Slug;
     this.countryStats = this.countries.find(o => o.Slug === countrySlug);
     this.getStatsByCountry(countrySlug);
-  }
-
-  retrieveUs() {
-    this.coronavirusApiService.getUsStatistics().subscribe(
-      data => {
-        this.usStatistics = data;
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-
-  retrieveUsDaily() {
-    this.coronavirusApiService.getUsStatisticsDaily().subscribe(
-      data => {
-        this.usDailyAll = data.reverse();
-        const daily = [];
-        const dailyData = this.usDailyAll.slice(data.length - 60, data.length);
-        dailyData.forEach(o => {
-          const dailyObj: any = {};
-          const date = o.date + '';
-          const formattedDate = date.slice(0, 4) + '-' + date.slice(4, 6) + '-' + date.slice(6, 8);
-          dailyObj.name = formattedDate;
-          if (o.deathIncrease === null) {
-            dailyObj.value = 0;
-          } else {
-            dailyObj.value = o.deathIncrease;
-          }
-          daily.push(dailyObj);
-        });
-        this.usDaily = daily;
-      },
-      error => {
-        console.log(error);
-      }
-    );
   }
 
   getStatsByCountry(countrySlug) {
@@ -99,25 +63,37 @@ export class DashboardComponent implements OnInit {
     const confirmed = [];
     const deaths = [];
     const recovered = [];
+    let prevDeaths = 0;
+    let prevConfirmed = 0;
+    let prevRecov = 0;
     data.forEach(o => {
       const confirmedObj: any = {};
       const deathsObj: any = {};
       const recoveredObj: any = {};
+
       confirmedObj.name = o.Date.substring(0, 10);
-      confirmedObj.value = o.Confirmed;
+      confirmedObj.value = o.Confirmed - prevConfirmed;
+      prevConfirmed = o.Confirmed;
       confirmed.push(confirmedObj);
 
       deathsObj.name = o.Date.substring(0, 10);
-      deathsObj.value = o.Deaths;
+      deathsObj.value = o.Deaths - prevDeaths;
+      prevDeaths = o.Deaths;
       deaths.push(deathsObj);
 
       recoveredObj.name = o.Date.substring(0, 10);
-      recoveredObj.value = o.Recovered;
+      recoveredObj.value = o.Recovered - prevRecov;
+      prevRecov = o.Recovered;
       recovered.push(recoveredObj);
     });
     this.countryConfirmedDayOne = confirmed;
     this.countryDeathsDayOne = deaths;
     this.countryRecoveredDayOne = recovered;
+
+    this.countryNewConfirm = data[this.countryConfirmedDayOne.length - 1].Confirmed - data[this.countryConfirmedDayOne.length - 2].Confirmed;
+    this.countryNewDeath = data[this.countryConfirmedDayOne.length - 1].Deaths - data[this.countryConfirmedDayOne.length - 2].Deaths;
+    this.countryNewRecov = data[this.countryConfirmedDayOne.length - 1].Recovered - data[this.countryConfirmedDayOne.length - 2].Recovered;
+    console.log(this.countryConfirmedDayOne);
   }
 
 }

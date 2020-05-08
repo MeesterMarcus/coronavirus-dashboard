@@ -7,8 +7,6 @@ import {HttpClient} from '@angular/common/http';
 export class CoronavirusApiService {
 
   BASE_API = 'https://api.covid19api.com/';
-  BASE_API_2 = 'http://covidtracking.com/api/';
-  NOVEL_COVID_API = 'https://disease.sh/v2/';
 
   constructor(private http: HttpClient) {
   }
@@ -26,25 +24,6 @@ export class CoronavirusApiService {
 
   getStatsByCountry(countrySlug): any {
     return this.http.get(this.BASE_API + 'country' + '/' + countrySlug);
-  }
-
-  /**
-   * BASE API 2
-   */
-  getUsStatistics(): any {
-    return this.http.get( this.BASE_API_2 + 'us');
-  }
-
-  getUsStatisticsDaily(): any {
-    return this.http.get( this.BASE_API_2 + 'us/daily');
-  }
-
-  /**
-   * NOVEL COVID-19 API
-   */
-
-  getHistoricalData(params) {
-    return this.http.get(this.NOVEL_COVID_API + 'historical',  params);
   }
 
 }
