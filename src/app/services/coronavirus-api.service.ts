@@ -13,6 +13,9 @@ export class CoronavirusApiService {
   constructor(private http: HttpClient) {
   }
 
+  /**
+   * BASE_API
+   */
   getSummary(): any {
     return this.http.get(this.BASE_API + 'summary');
   }
@@ -25,12 +28,23 @@ export class CoronavirusApiService {
     return this.http.get(this.BASE_API + 'country' + '/' + countrySlug);
   }
 
+  /**
+   * BASE API 2
+   */
   getUsStatistics(): any {
     return this.http.get( this.BASE_API_2 + 'us');
   }
 
   getUsStatisticsDaily(): any {
     return this.http.get( this.BASE_API_2 + 'us/daily');
+  }
+
+  /**
+   * NOVEL COVID-19 API
+   */
+
+  getHistoricalData(params) {
+    return this.http.get(this.NOVEL_COVID_API + 'historical',  params);
   }
 
 }
