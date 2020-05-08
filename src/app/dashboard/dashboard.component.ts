@@ -49,7 +49,6 @@ export class DashboardComponent implements OnInit {
   getStatsByCountry(countrySlug) {
     this.coronavirusApiService.getStatsByCountry(countrySlug).subscribe(
       data => {
-        // console.log(data);
         const truncatedData = data.slice(data.length - 60, data.length);
         this.separateData(truncatedData);
       },
@@ -90,9 +89,12 @@ export class DashboardComponent implements OnInit {
     this.countryDeathsDayOne = deaths;
     this.countryRecoveredDayOne = recovered;
 
-    this.countryNewConfirm = data[this.countryConfirmedDayOne.length - 1].Confirmed - data[this.countryConfirmedDayOne.length - 2].Confirmed;
-    this.countryNewDeath = data[this.countryConfirmedDayOne.length - 1].Deaths - data[this.countryConfirmedDayOne.length - 2].Deaths;
-    this.countryNewRecov = data[this.countryConfirmedDayOne.length - 1].Recovered - data[this.countryConfirmedDayOne.length - 2].Recovered;
+    this.countryNewConfirm = data[this.countryConfirmedDayOne.length - 1].Confirmed -
+      data[this.countryConfirmedDayOne.length - 2].Confirmed;
+    this.countryNewDeath = data[this.countryConfirmedDayOne.length - 1].Deaths -
+      data[this.countryConfirmedDayOne.length - 2].Deaths;
+    this.countryNewRecov = data[this.countryConfirmedDayOne.length - 1].Recovered -
+      data[this.countryConfirmedDayOne.length - 2].Recovered;
     console.log(this.countryConfirmedDayOne);
   }
 
