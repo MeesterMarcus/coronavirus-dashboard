@@ -6,20 +6,24 @@ import {HttpClient} from '@angular/common/http';
 })
 export class CoronavirusApiService {
 
-  BASE_API = 'https://api.covid19api.com/';
+  NOVEL_COVID_API = 'https://disease.sh/v2/';
 
   constructor(private http: HttpClient) {
   }
 
   /**
-   * BASE_API
+   * NOVEL_COVID_19
    */
-  getSummary(): any {
-    return this.http.get(this.BASE_API + 'summary');
+  getGlobal(): any {
+    return this.http.get(this.NOVEL_COVID_API + 'all');
   }
 
-  getStatsByCountry(countrySlug): any {
-    return this.http.get(this.BASE_API + 'country' + '/' + countrySlug);
+  getCountries(): any {
+    return this.http.get(this.NOVEL_COVID_API + 'countries');
+  }
+
+  getHistorical(country): any {
+    return this.http.get(this.NOVEL_COVID_API + 'historical/' + country);
   }
 
 }

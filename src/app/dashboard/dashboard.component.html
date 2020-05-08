@@ -1,110 +1,99 @@
-<div *ngIf="summary">
+<div *ngIf="globalData">
   <!--  Global Summary -->
   <mat-card class="section-margin">
-    <mat-toolbar color="accent" class="header-margin wrap">Global Statistics</mat-toolbar>
-    <mat-progress-bar mode="indeterminate" *ngIf="!summary"></mat-progress-bar>
-    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px">
-      <mat-card fxFlex="30%">
-        <div class="orange">
+    <mat-toolbar class="header-margin wrap">Global Statistics</mat-toolbar>
+    <mat-progress-bar mode="indeterminate" *ngIf="!globalData"></mat-progress-bar>
+    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px" *ngIf="globalData">
+      <mat-card fxFlex="30%" class="card-orange">
           Total confirmed cases:
-        </div>
-        <span>{{summary.Global.TotalConfirmed | number}}</span>
+        <div>{{globalData.cases | number}}</div>
       </mat-card>
-      <mat-card fxFlex="30%">
-        <div class="red">
+      <mat-card fxFlex="30%" class="card-red">
           Total deaths:
-        </div>
-        <span>{{summary.Global.TotalDeaths | number}}</span>
+        <div>{{globalData.deaths | number}}</div>
       </mat-card>
-      <mat-card fxFlex="30%">
-        <div class="green">
+      <mat-card fxFlex="30%" class="card-green">
           Total recovered cases:
-        </div>
-        <span>{{summary.Global.TotalRecovered | number}}</span>
+        <div>{{globalData.recovered | number}}</div>
+      </mat-card>
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px" *ngIf="globalData" class="section-margin">
+      <mat-card fxFlex="30%" class="card-orange">
+          New Cases:
+        <div>{{globalData.todayCases | number}}</div>
+      </mat-card>
+      <mat-card fxFlex="30%" class="card-red">
+          New deaths:
+        <div>{{globalData.todayDeaths | number}}</div>
+      </mat-card>
+      <mat-card fxFlex="30%" class="card-blue">
+          Countries Affected:
+        <div>{{globalData.affectedCountries | number}}</div>
       </mat-card>
     </div>
   </mat-card>
 
   <!--  Country Summary Statistics-->
   <mat-card class="section-margin">
-    <mat-toolbar color="accent" class="header-margin">{{countryStats.Country}}</mat-toolbar>
-    <mat-progress-bar mode="indeterminate" *ngIf="!countryStats"></mat-progress-bar>
+    <mat-toolbar class="header-margin">{{selectedCountry}}</mat-toolbar>
+    <mat-progress-bar mode="indeterminate" *ngIf="!countries"></mat-progress-bar>
     <div fxLayout="row wrap" fxLayoutAlign="center">
       <label><b>Enter country name:</b></label>
       <input [(ngModel)]="selectedCountry"
              [typeahead]="countries"
+             typeaheadOptionField="country"
              (typeaheadOnSelect)="retrieveCountry($event)"
-             placeholder="Type here"
-             typeaheadOptionField="Country"
              class="form-control country-select">
     </div>
 
     <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px" *ngIf="countryStats">
-      <mat-card fxFlex="30%">
-        <div class="orange">
+      <mat-card fxFlex="30%" class="card-orange">
           Total confirmed cases:
-        </div>
-        <span>{{totalConfirm | number}}</span>
+        <div>{{countryStats.cases | number}}</div>
       </mat-card>
-      <mat-card fxFlex="30%">
-        <div class="red">
-          Total deaths:
-        </div>
-        <span>{{totalDeath | number}}</span>
+      <mat-card fxFlex="30%" class="card-red">
+        Total deaths:
+        <div>{{countryStats.deaths | number}}</div>
       </mat-card>
-      <mat-card fxFlex="30%">
-        <div class="green">
+      <mat-card fxFlex="30%" class="card-green">
           Total recovered cases:
-        </div>
-        <span>{{totalRecov | number}}</span>
+        <div>{{countryStats.recovered | number}}</div>
       </mat-card>
     </div>
-    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px" *ngIf="countryStats">
-      <mat-card fxFlex="30%">
-        <div class="orange">
-          New confirmed cases:
-        </div>
-        <span>{{countryNewConfirm| number}}</span>
+    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px" *ngIf="countryStats" class="section-margin">
+      <mat-card fxFlex="30%" class="card-orange">
+        New confirmed cases:
+        <div>{{countryStats.todayCases| number}}</div>
       </mat-card>
-      <mat-card fxFlex="30%">
-        <div class="red">
+      <mat-card fxFlex="30%" class="card-red">
           New deaths:
-        </div>
-        <span>{{countryNewDeath | number}}</span>
+        <div>{{countryStats.todayDeaths | number}}</div>
       </mat-card>
-      <mat-card fxFlex="30%">
-        <div class="green">
-          New recovered cases:
-        </div>
-        <span>{{countryNewRecov | number}}</span>
+      <mat-card fxFlex="30%" class="card-blue">
+          Active:
+        <div>{{countryStats.active | number}}</div>
       </mat-card>
     </div>
+  </mat-card>
 
-    <mat-toolbar color="accent" class="header-margin">{{countryStats.Country}} Trends</mat-toolbar>
-    <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px" id="collapseBasic" [collapse]="isCollapsed">
 
-      <app-graph fxFlexFill
-        [data]="countryConfirmedDayOne"
-        [graphColor]="'orange'"
-        [xAxisLabel]="'Date'"
-        [yAxisLabel]="'New Cases'">
-      </app-graph>
+  <mat-card fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px">
+    <mat-toolbar class="header-margin" *ngIf="countryStats">{{countryStats.country}} Trends</mat-toolbar>
+    <app-graph fxFlexFill
+               [data]="countryHistoricalCases"
+               [graphColor]="'orange'"
+               [xAxisLabel]="'Date'"
+               [yAxisLabel]="'Cases Change'">
+    </app-graph>
 
-      <app-graph fxFlexFill
-        [data]="countryDeathsDayOne"
-        [graphColor]="'red'"
-        [xAxisLabel]="'Date'"
-        [yAxisLabel]="'New Deaths'">
-      </app-graph>
+    <app-graph fxFlexFill
+               [data]="countryHistoricalDeaths"
+               [graphColor]="'red'"
+               [xAxisLabel]="'Date'"
+               [yAxisLabel]="'Death Change'">
+    </app-graph>
 
-<!--      <app-graph fxFlexFill-->
-<!--        [data]="countryRecoveredDayOne"-->
-<!--        [graphColor]="'green'"-->
-<!--        [xAxisLabel]="'Date'"-->
-<!--        [yAxisLabel]="'New Recovered'">-->
-<!--      </app-graph>-->
-
-    </div>
   </mat-card>
 </div>
 
