@@ -14,16 +14,22 @@ export class CoronavirusApiService {
   /**
    * NOVEL_COVID_19
    */
-  getGlobal(): any {
-    return this.http.get(this.NOVEL_COVID_API + 'all');
+  getGlobal(queryParams): any {
+    return this.http.get(this.NOVEL_COVID_API + 'all', {
+      params: queryParams
+    });
   }
 
-  getCountries(): any {
-    return this.http.get(this.NOVEL_COVID_API + 'countries');
+  getCountries(queryParams): any {
+    return this.http.get(this.NOVEL_COVID_API + 'countries', {
+      params: queryParams
+    });
   }
 
-  getHistorical(country): any {
-    return this.http.get(this.NOVEL_COVID_API + 'historical/' + country);
+  getHistorical(country, queryParams): any {
+    return this.http.get(this.NOVEL_COVID_API + 'historical/' + country, {
+        params: queryParams
+      });
   }
 
 }

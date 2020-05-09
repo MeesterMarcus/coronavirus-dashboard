@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
   countryHistorical: any;
   countryHistoricalCases: any[];
   countryHistoricalDeaths: any[];
+  defaultDays = 30;
 
   constructor(private coronavirusApiService: CoronavirusApiService) {
   }
@@ -29,7 +30,8 @@ export class DashboardComponent implements OnInit {
    * Get global statistics
    */
   private getGlobalData() {
-    this.coronavirusApiService.getGlobal().subscribe(
+    const params = {};
+    this.coronavirusApiService.getGlobal(params).subscribe(
       data => {
         this.globalData = data;
       },
@@ -43,12 +45,13 @@ export class DashboardComponent implements OnInit {
    * Get list of countries with respective data
    */
   private getCountriesData() {
-    this.coronavirusApiService.getCountries().subscribe(
+    const params = {};
+    this.coronavirusApiService.getCountries(params).subscribe(
       data => {
         this.countries = data;
         this.selectedCountry = 'USA';
         this.countryStats = this.countries.find(o => o.country === 'USA');
-        this.getHistorical('USA');
+        this.getHistorical('USA', this.defaultDays);
       },
       error => {
         console.log(error);
@@ -63,15 +66,16 @@ export class DashboardComponent implements OnInit {
   retrieveCountry(event) {
     const country = event.item.country;
     this.countryStats = this.countries.find(o => o.country === country);
-    this.getHistorical(country);
+    this.getHistorical(country, this.defaultDays);
   }
 
   /**
    * Retrieve historical data
    * @param country: requested country e.g. USA
    */
-  private getHistorical(country) {
-    this.coronavirusApiService.getHistorical(country).subscribe(
+  private getHistorical(country, lastDays) {
+    const params = {lastdays: lastDays};
+    this.coronavirusApiService.getHistorical(country, params).subscribe(
       histData => {
         this.countryHistorical = histData;
         this.countryHistoricalCases = this.generateChangeTimeline(this.countryHistorical.timeline.cases);
