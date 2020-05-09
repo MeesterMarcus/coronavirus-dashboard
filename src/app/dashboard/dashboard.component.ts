@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit {
   countryHistorical: any;
   countryHistoricalCases: any[];
   countryHistoricalDeaths: any[];
-  defaultDays = 30;
+  daysBack = 30;
 
   constructor(private coronavirusApiService: CoronavirusApiService) {
   }
@@ -51,7 +51,7 @@ export class DashboardComponent implements OnInit {
         this.countries = data;
         this.selectedCountry = 'USA';
         this.countryStats = this.countries.find(o => o.country === 'USA');
-        this.getHistorical('USA', this.defaultDays);
+        this.getHistorical('USA', this.daysBack);
       },
       error => {
         console.log(error);
@@ -66,7 +66,7 @@ export class DashboardComponent implements OnInit {
   retrieveCountry(event) {
     const country = event.item.country;
     this.countryStats = this.countries.find(o => o.country === country);
-    this.getHistorical(country, this.defaultDays);
+    this.getHistorical(country, this.daysBack);
   }
 
   /**
@@ -123,6 +123,10 @@ export class DashboardComponent implements OnInit {
       i++;
     });
     return timeline;
+  }
+
+  getHistoricalBetween() {
+    this.getHistorical(this.countryStats.country, this.daysBack);
   }
 
 }

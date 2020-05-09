@@ -33,7 +33,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     TypeaheadModule.forRoot(),
     CollapseModule.forRoot(),
     FormsModule,
-    NgxChartsModule
+    NgxChartsModule,
   ],
   providers: [
     CoronavirusApiService

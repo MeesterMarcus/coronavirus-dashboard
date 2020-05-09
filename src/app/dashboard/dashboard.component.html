@@ -45,6 +45,7 @@
            (typeaheadOnSelect)="retrieveCountry($event)"
            class="form-control country-select">
   </div>
+
   <div fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="5px" *ngIf="countryStats">
     <mat-card fxFlex="30%" class="card-orange">
       Total confirmed cases:
@@ -78,6 +79,15 @@
 <mat-progress-bar mode="indeterminate" *ngIf="!countryHistoricalCases || !countryHistoricalDeaths"></mat-progress-bar>
 <mat-card *ngIf="countryHistoricalCases && countryHistoricalDeaths">
   <mat-toolbar class="header-margin">{{countryStats.country}} Trends</mat-toolbar>
+  <div fxLayout="row wrap" fxLayoutAlign="center">
+    <mat-form-field>
+      <mat-label>Days Back:</mat-label>
+      <input matInput placeholder="Days" type="number" [(ngModel)]="daysBack">
+    </mat-form-field>
+    <button (click)="getHistoricalBetween()" mat-raised-button color="primary" style="margin: 5px; height:35px;">
+      Go
+    </button>
+    </div>
   <div fxLayout="row" fxLayoutAlign="center">
     <app-graph fxFlexFill
                [data]="countryHistoricalCases"
