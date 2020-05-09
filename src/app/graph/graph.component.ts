@@ -12,7 +12,7 @@ export class GraphComponent implements OnInit {
   @Input() yAxisLabel: string;
   @Input() graphColor: string;
 
-  view: any[] = [900, 400];
+  view: any[] = [1200, 500];
 
   // options for the chart
   showXAxis = true;

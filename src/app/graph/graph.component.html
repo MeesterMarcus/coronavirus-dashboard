@@ -1,6 +1,5 @@
-<div class="chart-custom">
-  <ngx-charts-bar-vertical class="chart-container ng-star-inserted" *ngIf="data"
-                           [view]="view"
+<div class="chart-custom" fxLayout="row wrap" fxLayoutAlign="center">
+  <ngx-charts-bar-vertical *ngIf="data"
                            [scheme]="colorScheme"
                            [results]="data"
                            [gradient]="gradient"
