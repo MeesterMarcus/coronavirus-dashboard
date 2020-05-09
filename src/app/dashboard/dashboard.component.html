@@ -79,26 +79,23 @@
 <mat-progress-bar mode="indeterminate" *ngIf="!countryStats"></mat-progress-bar>
 <mat-card *ngIf="countryStats">
   <mat-toolbar class="header-margin">{{countryStats.country}} Trends</mat-toolbar>
-
   <div *ngIf="countryStats">
-    <div class="row">
-      <div class="col-md-6">
-        <app-graph fxFlexFill
-                   [data]="countryHistoricalCases"
-                   [graphColor]="'orange'"
-                   [xAxisLabel]="'Date'"
-                   [yAxisLabel]="'Cases Change'">
-        </app-graph>
-      </div>
+    <div fxLayout="row">
+      <app-graph fxFlexFill
+                 [data]="countryHistoricalCases"
+                 [graphColor]="'orange'"
+                 [xAxisLabel]="'Date'"
+                 [yAxisLabel]="'Cases Change'">
+      </app-graph>
+    </div>
 
-      <div class="col-md-6">
-        <app-graph fxFlexFill
-                   [data]="countryHistoricalDeaths"
-                   [graphColor]="'red'"
-                   [xAxisLabel]="'Date'"
-                   [yAxisLabel]="'Death Change'">
-        </app-graph>
-      </div>
+    <div fxLayout="row">
+      <app-graph fxFlexFill
+                 [data]="countryHistoricalDeaths"
+                 [graphColor]="'red'"
+                 [xAxisLabel]="'Date'"
+                 [yAxisLabel]="'Death Change'">
+      </app-graph>
     </div>
   </div>
 </mat-card>
