@@ -5,6 +5,10 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
+/**
+ * @author: Marcus Lorenzana: https://marcuslorenzana.com
+ */
 export class AppComponent {
-  title = 'coronavirus-dashboard';
+  title = 'COVID-19 Statistics';
 }

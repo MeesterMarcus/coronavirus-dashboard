@@ -8,31 +8,41 @@ import {CoronavirusApiService} from '../services/coronavirus-api.service';
 })
 export class DashboardComponent implements OnInit {
 
+  // Variables
+  globalData: any;
   selectedCountry: string;
   countries: any;
   countryStats: any;
-
   countryHistorical: any;
   countryHistoricalCases: any[];
   countryHistoricalDeaths: any[];
-
-
-
-  globalData: any;
 
   constructor(private coronavirusApiService: CoronavirusApiService) {
   }
 
   ngOnInit(): void {
+    this.getGlobalData();
+    this.getCountriesData();
+  }
+
+  /**
+   * Get global statistics
+   */
+  private getGlobalData() {
     this.coronavirusApiService.getGlobal().subscribe(
       data => {
-        console.log(data);
         this.globalData = data;
       },
       error => {
         console.log(error);
       }
     );
+  }
+
+  /**
+   * Get list of countries with respective data
+   */
+  private getCountriesData() {
     this.coronavirusApiService.getCountries().subscribe(
       data => {
         this.countries = data;
@@ -46,12 +56,20 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+  /**
+   * Find country within countries list by country name
+   * @param event: the event passed from input selection
+   */
   retrieveCountry(event) {
     const country = event.item.country;
     this.countryStats = this.countries.find(o => o.country === country);
     this.getHistorical(country);
   }
 
+  /**
+   * Retrieve historical data
+   * @param country: requested country e.g. USA
+   */
   private getHistorical(country) {
     this.coronavirusApiService.getHistorical(country).subscribe(
       histData => {
@@ -65,6 +83,10 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+  /**
+   * Transform data for traditional bar graph
+   * @param data: the timeline data
+   */
   private generateTimeline(data) {
     const timeline = [];
     Object.entries(data).forEach(o => {
@@ -76,6 +98,10 @@ export class DashboardComponent implements OnInit {
     return timeline;
   }
 
+  /**
+   * Transform data for daily change bar graph
+   * @param data: the timeline data
+   */
   private generateChangeTimeline(data) {
     const timeline = [];
     let i = 0;
