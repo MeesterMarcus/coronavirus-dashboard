@@ -76,7 +76,7 @@
   </div>
 </mat-card>
 
-<mat-progress-bar mode="indeterminate" *ngIf="!countryHistoricalCases || !countryHistoricalDeaths"></mat-progress-bar>
+<mat-progress-bar mode="indeterminate" *ngIf="historicalLoading"></mat-progress-bar>
 <mat-card *ngIf="countryHistoricalCases && countryHistoricalDeaths">
   <mat-toolbar class="header-margin">{{countryStats.country}} Trends</mat-toolbar>
   <div fxLayout="row wrap" fxLayoutAlign="center">

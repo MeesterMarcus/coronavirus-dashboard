@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
   countryHistoricalCases: any[];
   countryHistoricalDeaths: any[];
   daysBack = 30;
+  historicalLoading = false;
 
   constructor(private coronavirusApiService: CoronavirusApiService) {
   }
@@ -75,11 +76,24 @@ export class DashboardComponent implements OnInit {
    */
   private getHistorical(country, lastDays) {
     const params = {lastdays: lastDays};
+    this.historicalLoading = true;
     this.coronavirusApiService.getHistorical(country, params).subscribe(
       histData => {
         this.countryHistorical = histData;
-        this.countryHistoricalCases = this.generateChangeTimeline(this.countryHistorical.timeline.cases);
-        this.countryHistoricalDeaths = this.generateChangeTimeline(this.countryHistorical.timeline.deaths);
+        const finalCasesMulti = [];
+        const finalCasesData: any = {};
+        finalCasesData.name = 'New Cases';
+        finalCasesData.series = this.generateChangeTimeline(this.countryHistorical.timeline.cases);
+        finalCasesMulti.push(finalCasesData);
+
+        const finalDeathMulti = [];
+        const finalDeathData: any = {};
+        finalDeathData.name = 'New Deaths';
+        finalDeathData.series = this.generateChangeTimeline(this.countryHistorical.timeline.deaths);
+        finalDeathMulti.push(finalDeathData);
+        this.countryHistoricalCases = finalCasesMulti;
+        this.countryHistoricalDeaths = finalDeathMulti;
+        this.historicalLoading = false;
       },
       error => {
         console.log(error);
