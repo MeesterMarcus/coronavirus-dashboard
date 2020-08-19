@@ -1,13 +1,21 @@
 <mat-toolbar color="primary">
-  <mat-toolbar-row>
     <span>{{title}}</span>
-  </mat-toolbar-row>
+  <span class="example-spacer"></span>
+  <button style="margin-right:20px;" mat-icon-button [routerLink]="['dashboard']">
+    Home
+  </button>
+  <button mat-icon-button [routerLink]="['news']">
+    News
+  </button>
 </mat-toolbar>
 
 <router-outlet></router-outlet>
 
-<mat-toolbar>
-  <mat-toolbar-row class="footer-text">
-    Application built by&nbsp;<a href="https://marcuslorenzana.com" target="_blank"> Marcus Lorenzana</a>. Powered by&nbsp;<a href="https://github.com/disease-sh/API" target="_blank"> NovelCOVID API</a>
-  </mat-toolbar-row>
-</mat-toolbar>
+<footer class="mt-auto" fxLayout="column">
+  <mat-toolbar>
+    <mat-toolbar-row class="footer-text">
+      Application built by&nbsp;<a href="https://marcuslorenzana.com" target="_blank"> Marcus Lorenzana</a>. Powered by&nbsp;<a href="https://github.com/disease-sh/API" target="_blank"> NovelCOVID API</a>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</footer>
+

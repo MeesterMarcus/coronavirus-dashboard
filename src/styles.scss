@@ -3,3 +3,8 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #e3e3e3;}
+app-root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

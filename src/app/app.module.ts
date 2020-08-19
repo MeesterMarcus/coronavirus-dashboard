@@ -14,6 +14,8 @@ import {CollapseModule} from 'ngx-bootstrap/collapse';
 import { GraphComponent } from './graph/graph.component';
 import {MaterialModule} from './material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { NewsComponent } from './news/news.component';
+import {NewsService} from './services/news.service';
 
 
 
@@ -21,7 +23,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   declarations: [
     AppComponent,
     DashboardComponent,
-    GraphComponent
+    GraphComponent,
+    NewsComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     NgxChartsModule,
   ],
   providers: [
-    CoronavirusApiService
+    CoronavirusApiService,
+    NewsService
   ],
   bootstrap: [AppComponent]
 })
