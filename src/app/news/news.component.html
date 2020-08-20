@@ -2,7 +2,7 @@
   <mat-toolbar class="header-margin wrap">News</mat-toolbar>
   <div *ngFor="let article of articles" class="article-card" style="margin: 1em;">
     <a href="{{article.webUrl}}" target="_blank">
-      <mat-card *ngIf="article.images && article.images.length > 0" style="cursor:pointer">
+      <mat-card style="cursor:pointer">
         <mat-card-header>
           <mat-card-title>{{article.title}}</mat-card-title>
         </mat-card-header>
