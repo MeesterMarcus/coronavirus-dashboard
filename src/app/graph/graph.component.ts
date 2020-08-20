@@ -31,6 +31,11 @@ export class GraphComponent implements OnInit {
   constructor() {
   }
 
+  // view is the variable used to change the chart size (Ex: view = [width, height])
+  onResize(event) {
+    this.view = [event.target.innerWidth / 1.35, 400];
+  }
+
   ngOnInit(): void {
     if (this.graphColor === 'green') {
       this.colorScheme = this.colorSchemeGreen;

@@ -88,20 +88,20 @@
       Go
     </button>
   </div>
-  <div fxLayout="row" fxLayoutAlign="center">
-    <app-graph fxFlexFill
-               [data]="countryHistoricalCases"
-               [graphColor]="'orange'"
-               [xAxisLabel]="'Date'"
-               [yAxisLabel]="'Cases Change'">
+  <div fxLayou="row">
+    <app-graph
+      [data]="countryHistoricalCases"
+      [graphColor]="'orange'"
+      [xAxisLabel]="'Date'"
+      [yAxisLabel]="'Cases Change'">
     </app-graph>
   </div>
-  <div fxLayout="row" fxLayoutAlign="center">
-    <app-graph fxFlexFill
-               [data]="countryHistoricalDeaths"
-               [graphColor]="'red'"
-               [xAxisLabel]="'Date'"
-               [yAxisLabel]="'Death Change'">
+  <div fxLayou="row">
+    <app-graph
+      [data]="countryHistoricalDeaths"
+      [graphColor]="'red'"
+      [xAxisLabel]="'Date'"
+      [yAxisLabel]="'Death Change'">
     </app-graph>
   </div>
 </mat-card>
