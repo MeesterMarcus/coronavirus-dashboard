@@ -33,7 +33,7 @@ export class GraphComponent implements OnInit {
 
   // view is the variable used to change the chart size (Ex: view = [width, height])
   onResize(event) {
-    this.view = [event.target.innerWidth / 1.35, 400];
+    this.view = [event.target.innerWidth / 1.15, 250];
   }
 
   ngOnInit(): void {
