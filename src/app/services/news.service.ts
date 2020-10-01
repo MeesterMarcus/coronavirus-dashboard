@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
@@ -6,21 +6,25 @@ import {HttpClient} from '@angular/common/http';
 })
 export class NewsService {
 
-  NEWS_API_URL = 'https://api.smartable.ai/coronavirus/news/US';
-  API_KEY = 'dffb8de11e4a4a32816165d5c5cd273f';
+  NEWS_API_URL = 'https://coronavirus-smartable.p.rapidapi.com/news/v1/US/';
 
-  constructor(private http: HttpClient) { }
+  headerObj: any = {
+    'x-rapidapi-host': 'coronavirus-smartable.p.rapidapi.com',
+    'x-rapidapi-key': '9ff1614606msh08f8f40fdf29d97p1c6f75jsnb8f64eb503b4',
+    useQueryString: true
+  };
+
+  constructor(private http: HttpClient) {
+  }
 
   /**
    * NOVEL_COVID_19 News
    */
   getNews(queryParams): any {
-    const headerObj = {
-      'Subscription-Key': this.API_KEY
-    };
+
     return this.http.get(this.NEWS_API_URL, {
       params: queryParams,
-      headers: headerObj
+      headers: this.headerObj
     });
   }
 }
