@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "start-mobile": "ng serve --host 192.168.1.28",
+    "start": "ng serve --host 0.0.0.0",
+    "start-mobile": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
