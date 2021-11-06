@@ -1,9 +1,0 @@
-version: '3.7'
-services:
-  app-svc:
-    build:
-      context: ./
-      dockerfile: Dockerfile
-    ports:
-      - "4200:4200"
-    container_name: app
